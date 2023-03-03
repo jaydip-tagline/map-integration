@@ -1,0 +1,63 @@
+<!-- <agm-map
+[latitude]="lat"
+[longitude]="lng"
+[zoom]="zoom"
+[disableDefaultUI]="false"
+(mapClick)="mapClicked($event)"
+[mapTypeId]="'HYBRID'"
+>
+<agm-marker
+  *ngFor="let m of markers; let i = index"
+  (markerClick)="clickedMarker(m.label, i)"
+  [latitude]="m.lat"
+  [longitude]="m.lng"
+  [label]="m.label"
+  [markerDraggable]="m.draggable"
+  [iconUrl]="'./assets/icons/car_icon.png'"
+>
+</agm-marker>
+<agm-polyline
+  [visible]="true"
+  [strokeWeight]="3"
+  [strokeColor]="'#07b57a'"
+>
+  <agm-polyline-point
+    *ngFor="let coordinate of latlng; let i = index"
+    [latitude]="coordinate[0]"
+    [longitude]="coordinate[1]"
+  >
+  </agm-polyline-point>
+</agm-polyline>
+</agm-map> -->
+
+<agm-map
+  [latitude]="lat"
+  [longitude]="lng"
+  [zoom]="zoom"
+  [disableDefaultUI]="false"
+  (mapClick)="mapClicked($event)"
+>
+  <agm-marker
+    *ngFor="let m of markers; let i = index"
+    (markerClick)="clickedMarker(m.label, i)"
+    [latitude]="m.lat"
+    [longitude]="m.lng"
+    [label]="m.label"
+    [markerDraggable]="m.draggable"
+    (dragEnd)="markerDragEnd(m, $event)"
+    [iconUrl]="'./assets/icons/car_icon.png'"
+  >
+    <agm-marker
+      [latitude]="lat1"
+      [longitude]="lng1"
+      [iconUrl]="'./assets/icons/car_icon.png'"
+    ></agm-marker>
+    <!-- <agm-marker [latitude]="dropLat" [longitude]="dropLng"></agm-marker> -->
+    <!-- <agm-polyline [path]="path"></agm-polyline> -->
+    <agm-info-window>
+      <strong>InfoWindow content</strong>
+    </agm-info-window>
+  </agm-marker>
+</agm-map>
+<button (click)="start()">Start</button>
+<button (click)="stop()">Stop</button>
